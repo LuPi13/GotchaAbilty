@@ -1,0 +1,13 @@
+name: GotchaAbility
+version: '${project.version}'
+main: yasking.lupi13.gotchaability.GotchaAbility
+api-version: 1.19
+authors: [ LuPi13 ]
+description: Inspired by Genshin Impact's wish system.
+website: https://github.com/LuPi13
+commands:
+  gotcha:
+    description: Commands for Gotcha Ability.
+    usage: /gotcha ...
+    aliases:
+      - gc
