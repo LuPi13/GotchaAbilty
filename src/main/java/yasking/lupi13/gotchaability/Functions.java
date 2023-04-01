@@ -418,7 +418,7 @@ public class Functions implements Listener {
         List<ItemStack> unlockedItems = getUnlockedItemStacks(player);
         int count = unlockedItems.size();
         int maxPage = (count % 45 == 0) ? count / 45 : (count / 45) + 1;
-        inventory.setItem(45, ItemManager.Close);
+        //inventory.setItem(45, ItemManager.Close);
 
         if (page == maxPage) {
             for (int i = 0; i <= (count - (45 * (page - 1)) - 1); i++) {

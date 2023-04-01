@@ -63,7 +63,7 @@ public class Gotcha implements CommandExecutor {
 
                 else if (args[0].equalsIgnoreCase("shop")) {
                     Inventory shop = Bukkit.createInventory(player, 9, ShopGUI.shopName);
-                    shop.setItem(0, ItemManager.Close);
+                    //shop.setItem(0, ItemManager.Close);
                     shop.setItem(2, ItemManager.Possession);
                     shop.setItem(3, ItemManager.WillC);
                     shop.setItem(4, ItemManager.WillB);
@@ -84,7 +84,7 @@ public class Gotcha implements CommandExecutor {
                         gotcha.setItem(i, ItemManager.GotchaDummy);
                     }
 
-                    gotcha.setItem(45, ItemManager.Close);
+                    //gotcha.setItem(45, ItemManager.Close);
                     gotcha.setItem(49, ItemManager.Run);
 
                     player.openInventory(gotcha);

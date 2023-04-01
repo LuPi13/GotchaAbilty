@@ -46,7 +46,7 @@ public class DictionaryGUI implements Listener {
 
         int count = all.size();
         int maxPage = (count % 45 == 0) ? count / 45 : (count / 45) + 1;
-        inventory.setItem(45, ItemManager.Close);
+        //inventory.setItem(45, ItemManager.Close);
 
         if (page == maxPage) {
             for (int i = 0; i <= (count - (45 * (page - 1)) - 1); i++) {
@@ -84,10 +84,12 @@ public class DictionaryGUI implements Listener {
                     return;
                 }
 
+                /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
                     player.closeInventory();
                     event.setCancelled(true);
                 }
+                 */
 
                 else if (event.getCurrentItem().equals(ItemManager.NextPage)) {
                     player.closeInventory();

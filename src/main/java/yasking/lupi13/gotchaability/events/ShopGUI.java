@@ -25,10 +25,12 @@ public class ShopGUI implements Listener {
             Player player = ((Player) event.getWhoClicked());
             int playerEmeralds = Functions.countItems(player, Material.EMERALD);
             if (event.isLeftClick()) {
+                /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
                     player.closeInventory();
                     event.setCancelled(true);
                 }
+                 */
 
                 if (event.getCurrentItem().equals(ItemManager.Possession)) {
                     if (playerEmeralds >= 10) {

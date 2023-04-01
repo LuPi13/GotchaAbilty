@@ -60,10 +60,12 @@ public class SelectGUI implements Listener {
                     return;
                 }
 
+                /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
                     player.closeInventory();
                     event.setCancelled(true);
                 }
+                 */
 
                 else if (event.getCurrentItem().equals(ItemManager.NextPage)) {
                     player.closeInventory();

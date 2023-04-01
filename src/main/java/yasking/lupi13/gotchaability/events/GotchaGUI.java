@@ -33,10 +33,13 @@ public class GotchaGUI implements Listener {
             Player player = ((Player) event.getWhoClicked());
             int possessions = Functions.countItems(player, ItemManager.Possession);
             if (event.isLeftClick()) {
+                /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
                     player.closeInventory();
                     event.setCancelled(true);
                 }
+
+                 */
                 if (event.getCurrentItem().equals(ItemManager.GotchaDummy)) {
                     event.setCancelled(true);
                 }

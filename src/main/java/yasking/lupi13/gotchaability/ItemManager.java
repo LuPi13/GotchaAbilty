@@ -44,7 +44,7 @@ public class ItemManager {
     public static ItemStack CoverS;
     public static ItemStack NewbieBook;
     public static ItemStack Run;
-    public static ItemStack Close;
+    //public static ItemStack Close;
     public static ItemStack GotchaDummy;
     public static ItemStack NextPage;
     public static ItemStack PrevPage;
@@ -178,6 +178,7 @@ public class ItemManager {
         Run = item;
     }
 
+    /*
     public static void createClose() {
         ItemStack item = new ItemStack(Material.BARRIER, 1);
         ItemMeta meta = item.getItemMeta();
@@ -187,6 +188,8 @@ public class ItemManager {
         item.setItemMeta(meta);
         Close = item;
     }
+
+     */
 
     public static void createGotchaDummy() {
         ItemStack item = new ItemStack(Material.DIAMOND_BLOCK, 1);
@@ -258,7 +261,7 @@ public class ItemManager {
         createWills();
         createCovers();
         createRun();
-        createClose();
+        //createClose();
         createGotchaDummy();
         createNextPage();
         createPrevPage();
