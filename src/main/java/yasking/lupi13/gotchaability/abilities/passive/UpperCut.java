@@ -54,7 +54,7 @@ public class UpperCut implements Listener {
                             target.setVelocity(new Vector(0, target.getVelocity().length(), 0));
                             cancel();
                         }
-                    }.runTaskTimer(plugin, 1L, 1L);
+                    }.runTaskLater(plugin, 1L);
                 }
             }
         }

@@ -22,10 +22,13 @@ public class ItemManager {
     public static List<ItemStack> asList = new ArrayList<>();
     public static List<ItemStack> sList = new ArrayList<>();
     public static List<ItemStack> ssList = new ArrayList<>();
+    public static List<ItemStack> sssList = new ArrayList<>();
+    public static List<ItemStack> activeList = new ArrayList<>();
     public static List<ItemStack> softDenyList = new ArrayList<>(); //조합, 상호작용 불가
     public static List<ItemStack> hardDenyList = new ArrayList<>(); //왼손 아이템
 
     public static Map<ItemStack, String> codenameMap = new HashMap<>();
+    public static Map<ItemStack, ItemStack> activeMap = new HashMap<>();
 
     public static String PossessionName = ChatColor.AQUA + "" + ChatColor.BOLD + "POSSESSION";
     public static ItemStack Possession;

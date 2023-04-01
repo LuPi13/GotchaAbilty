@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -80,6 +79,23 @@ public class Functions implements Listener {
     }
 
 
+    //왼손아이템 제작, 등록
+    public static ItemStack makeActiveItem(Material material, String displayName, List<String> lore) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(displayName);
+        meta.addEnchant(Enchantment.LUCK, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+
     //등급리스트에 자동 추가
     public static void putList(ItemStack item, String grade) {
         switch (grade) {
@@ -104,8 +120,11 @@ public class Functions implements Listener {
             case "S":
                 ItemManager.sList.add(item);
                 break;
-            case "SS*":
+            case "S*":
                 ItemManager.ssList.add(item);
+                break;
+            case "SS*":
+                ItemManager.sssList.add(item);
                 break;
         }
     }
@@ -235,7 +254,7 @@ public class Functions implements Listener {
 
     //cover 넣기
     public static void coverPut(Player player, Inventory inventory, ItemStack item, int index) {
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1f, 0.8f);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 0.5f, 0.8f);
         inventory.setItem(index, item);
     }
 
@@ -289,6 +308,7 @@ public class Functions implements Listener {
                 Collections.shuffle(aPick);
                 List<String> unlocked = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@unlocked");
                 if (!unlocked.contains(ItemManager.codenameMap.get(aPick.get(0)))) {
+                    unlocked.add(ItemManager.codenameMap.get(aPick.get(0)));
                     FileManager.getAbilityConfig().set(player.getDisplayName() + "@unlocked", unlocked);
 
                     //업적
@@ -314,6 +334,7 @@ public class Functions implements Listener {
                 ItemStack sPick = PickUpRotation.getPickUpList(0).get(0);
                 List<String> unlocked = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@unlocked");
                 if (!unlocked.contains(ItemManager.codenameMap.get(sPick))) {
+                    unlocked.add(ItemManager.codenameMap.get(sPick));
                     FileManager.getAbilityConfig().set(player.getDisplayName() + "@unlocked", unlocked);
                 }
                 FileManager.saveAll();
@@ -328,11 +349,11 @@ public class Functions implements Listener {
 
         if (result.equals(ItemManager.aList)) {
             for (int i = 0; i <= 2; i++) {
-                result.remove(PickUpRotation.APickUp.get(i));
+                result.remove(Functions.getItemStackFromMap(FileManager.getMiscConfig().getStringList("APickUp").get(i)));
             }
         }
         if (result.equals(ItemManager.sList)) {
-            result.remove(PickUpRotation.SPickUp.get(0));
+            result.remove(Functions.getItemStackFromMap(FileManager.getMiscConfig().getStringList("SPickUp").get(0)));
         }
 
         Collections.shuffle(result);
@@ -396,7 +417,7 @@ public class Functions implements Listener {
         Inventory inventory = Bukkit.createInventory(player, 54, SelectGUI.SelectName);
         List<ItemStack> unlockedItems = getUnlockedItemStacks(player);
         int count = unlockedItems.size();
-        int maxPage = (unlockedItems.size() % 45 == 0) ? unlockedItems.size() / 45 : (unlockedItems.size() / 45) + 1;
+        int maxPage = (count % 45 == 0) ? count / 45 : (count / 45) + 1;
         inventory.setItem(45, ItemManager.Close);
 
         if (page == maxPage) {
@@ -443,6 +464,9 @@ public class Functions implements Listener {
             grade = "S";
         }
         else if (ItemManager.ssList.contains(item)) {
+            grade = "S*";
+        }
+        else if (ItemManager.sssList.contains(item)) {
             grade = "SS*";
         }
 

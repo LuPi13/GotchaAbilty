@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import yasking.lupi13.gotchaability.*;
@@ -25,7 +26,26 @@ public class SelectGUI implements Listener {
     public static String SelectName = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "SELECT";
 
     public static Map<Player, Integer> page = new HashMap<>();
-    public static Map<Player, Integer> maxPage = new HashMap<>();
+
+
+    public void activeSet(Player player, ItemStack item) {
+        if (ItemManager.activeList.contains(item)) {
+            try {
+                ItemStack offHandItem = player.getInventory().getItemInOffHand();
+                player.getInventory().setItemInOffHand(ItemManager.activeMap.get(item));
+                if (!ItemManager.activeList.contains(offHandItem)) {
+                    player.getWorld().dropItemNaturally(player.getEyeLocation(), offHandItem);
+                }
+            }
+            catch (IllegalArgumentException ignored) {
+            }
+        }
+        else {
+            if (ItemManager.hardDenyList.contains(player.getInventory().getItemInOffHand())) {
+                player.getInventory().setItemInOffHand(null);
+            }
+        }
+    }
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -34,6 +54,12 @@ public class SelectGUI implements Listener {
             Player player = ((Player) event.getWhoClicked());
 
             if (event.isLeftClick()) {
+                assert inventory != null;
+                if (inventory.getType().equals(InventoryType.PLAYER)) {
+                    event.setCancelled(true);
+                    return;
+                }
+
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
                     player.closeInventory();
                     event.setCancelled(true);
@@ -44,6 +70,7 @@ public class SelectGUI implements Listener {
                     page.put(player, page.get(player) + 1);
                     Inventory nextSelect = Functions.makeSelectGUI(player, page.get(player));
                     player.openInventory(nextSelect);
+                    player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1F, 2F);
                     event.setCancelled(true);
                 }
 
@@ -52,6 +79,7 @@ public class SelectGUI implements Listener {
                     page.put(player, page.get(player) - 1);
                     Inventory prevSelect = Functions.makeSelectGUI(player, page.get(player));
                     player.openInventory(prevSelect);
+                    player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1F, 2F);
                     event.setCancelled(true);
                 }
 
@@ -75,6 +103,7 @@ public class SelectGUI implements Listener {
                         }
                     }
                     else {
+
                         if (FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability").contains(codename)) {
                             player.sendMessage(ChatColor.RED + "이미 적용되어있는 능력입니다!");
                             player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
@@ -85,6 +114,7 @@ public class SelectGUI implements Listener {
                         else if ((grade.equals("C")) || (grade.equals("C*"))) {
                             int WillCount = Functions.countItems(player, ItemManager.WillC);
                             if (WillCount >= 1) {
+                                activeSet(player, item);
                                 Functions.removeItems(player, ItemManager.WillC, 1);
                                 List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
 
@@ -110,6 +140,7 @@ public class SelectGUI implements Listener {
                         else if ((grade.equals("B")) || (grade.equals("B*"))) {
                             int WillCount = Functions.countItems(player, ItemManager.WillB);
                             if (WillCount >= 1) {
+                                activeSet(player, item);
                                 Functions.removeItems(player, ItemManager.WillB, 1);
                                 List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
 
@@ -135,6 +166,7 @@ public class SelectGUI implements Listener {
                         else if ((grade.equals("A")) || (grade.equals("A*"))) {
                             int WillCount = Functions.countItems(player, ItemManager.WillA);
                             if (WillCount >= 1) {
+                                activeSet(player, item);
                                 Functions.removeItems(player, ItemManager.WillA, 1);
                                 List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
 
@@ -160,6 +192,7 @@ public class SelectGUI implements Listener {
                         else if ((grade.equals("S")) || (grade.equals("S*"))) {
                             int WillCount = Functions.countItems(player, ItemManager.WillS);
                             if (WillCount >= 1) {
+                                activeSet(player, item);
                                 Functions.removeItems(player, ItemManager.WillS, 1);
                                 List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
 
@@ -185,6 +218,7 @@ public class SelectGUI implements Listener {
                         else if (grade.equals("SS*")) {
                             int WillCount = Functions.countItems(player, ItemManager.WillSS);
                             if (WillCount >= 1) {
+                                activeSet(player, item);
                                 Functions.removeItems(player, ItemManager.WillSS, 1);
                                 List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
 

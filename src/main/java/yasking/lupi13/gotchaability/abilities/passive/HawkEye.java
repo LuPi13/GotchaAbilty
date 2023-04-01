@@ -1,5 +1,8 @@
 package yasking.lupi13.gotchaability.abilities.passive;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -52,21 +55,24 @@ public class HawkEye implements Listener {
                 for (Material material : swords) {
                     if (event.getItem().getType().equals(material)) {
                         if (player.getCooldown(event.getItem().getType()) == 0) {
-                            for (Material material1 : swords) {
-                                player.setCooldown(material1, 400);
-                            }
-                            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.5F);
                             List<Entity> entities = player.getNearbyEntities(16, 8, 16);
-                            if (entities.size() == 0) {
-                                return;
-                            }
-                            Collections.shuffle(entities);
-                            for (Entity entity : entities) {
-                                if (entity instanceof LivingEntity) {
-                                    target.put(player, ((LivingEntity) entity));
-                                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 0, true, false, false));
-                                    break;
+                            if (entities.size() != 0) {
+                                for (Material material1 : swords) {
+                                    player.setCooldown(material1, 400);
                                 }
+                                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.5F);
+                                Collections.shuffle(entities);
+                                for (Entity entity : entities) {
+                                    if (entity instanceof LivingEntity) {
+                                        target.put(player, ((LivingEntity) entity));
+                                        ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 0, true, false, false));
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                BaseComponent text = new TextComponent(ChatColor.YELLOW + "주변에 적이 없습니다!");
+                                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
                             }
                         }
                         break;

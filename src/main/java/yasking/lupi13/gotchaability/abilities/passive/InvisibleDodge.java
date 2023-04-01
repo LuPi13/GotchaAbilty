@@ -56,7 +56,7 @@ public class InvisibleDodge implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.isSneaking() && player.isOnGround()) {
+            if (event.isSneaking() && ((LivingEntity) player).isOnGround()) {
                 if ((time.get(player) != null) && ((System.currentTimeMillis() - time.get(player)) <= 300)) {
                     if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 10000))) {
                         coolTime.put(player, System.currentTimeMillis());

@@ -113,7 +113,7 @@ public class QuestManager implements Listener {
 
             case "InvisibleDodge":
                 BaseComponent IntoTheDark = new TextComponent(ChatColor.BLACK + "어둠 속으로");
-                String IntoTheDarkDetail = "10명 이상의 적에게 둘러싸인 상태에서 소멸의 걸음을 시전하세요. (능력 해금: " + Functions.makeDisplayName("어둠그림자 돌격대", "A*") + ChatColor.RESET + ")";
+                String IntoTheDarkDetail = "10명 이상의 적에게 둘러싸인 상태에서 소멸의 걸음을 시전하세요. (능력 해금: " + Functions.makeDisplayName("어둠그림자 돌격대", "SS*") + ChatColor.RESET + ")";
                 IntoTheDark.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("???")));
                 QuestDetail.put(IntoTheDark, IntoTheDarkDetail);
 
@@ -147,10 +147,25 @@ public class QuestManager implements Listener {
             case "HawkEye":
                 BaseComponent GiveAll = new TextComponent(ChatColor.WHITE + "주머니에 있는 거 다 꺼내!");
                 String GiveAllDetail = "이 능력으로 100개의 추가 아이템을 획득하세요. (능력 해금: " + Functions.makeDisplayName("매의 눈+", "B*") + ChatColor.RESET + ")";
-                GiveAll.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("이 능력을 300개의 추가 아이템을 획득하세요. (능력 해금: " + Functions.makeDisplayName("매의 눈+", "B*") + ChatColor.RESET + ")")));
+                GiveAll.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("이 능력으로 100개의 추가 아이템을 획득하세요. (능력 해금: " + Functions.makeDisplayName("매의 눈+", "B*") + ChatColor.RESET + ")")));
                 QuestDetail.put(GiveAll, GiveAllDetail);
 
                 quests.add(GiveAll);
+                break;
+
+            case "TimeLeaper":
+                BaseComponent LightTime = new TextComponent(ChatColor.WHITE + "빛의 시간");
+                String LightTimeDetail = "이 능력으로 총 200의 체력을 회복하세요. (능력 해금: " + Functions.makeDisplayName("시간 역행+", "A*") + ChatColor.RESET + ")";
+                LightTime.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("이 능력으로 총 200의 체력을 회복하세요. (능력 해금: " + Functions.makeDisplayName("시간 역행+", "A*") + ChatColor.RESET + ")")));
+                QuestDetail.put(LightTime, LightTimeDetail);
+
+                BaseComponent DarkTime = new TextComponent(ChatColor.BLACK + "어둠의 시간");
+                String DarkTimeDetail = "이 능력으로 총 50의 체력을 잃으세요. (능력 해금: " + Functions.makeDisplayName("시공간 붕괴", "S*") + ChatColor.RESET + ")";
+                DarkTime.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("???")));
+                QuestDetail.put(DarkTime, DarkTimeDetail);
+
+                quests.add(LightTime);
+                quests.add(DarkTime);
                 break;
         }
 

@@ -60,11 +60,11 @@ public class ShieldStrike implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.isSneaking() && player.isOnGround()) {
+            if (event.isSneaking() && ((LivingEntity) player).isOnGround()) {
                 if ((time.get(player) != null) && ((System.currentTimeMillis() - time.get(player)) <= 300)) {
-                    if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 10000))) {
-                        if (player.getInventory().getItemInMainHand().getType().equals(Material.SHIELD)
-                        ||player.getInventory().getItemInOffHand().getType().equals(Material.SHIELD)) {
+                    if (player.getInventory().getItemInMainHand().getType().equals(Material.SHIELD)
+                            ||player.getInventory().getItemInOffHand().getType().equals(Material.SHIELD)) {
+                        if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 10000))) {
                             coolTime.put(player, System.currentTimeMillis());
 
                             timer.put(player, 1);
@@ -100,7 +100,7 @@ public class ShieldStrike implements Listener {
                                                         QuestManager.clearQuest(player, "PerfectDistance", codename, "ShieldStrikePlus", 0);
                                                     }
 
-                                                    if (player.getFireTicks() != 0 && (target.getHealth() <= 8)) {
+                                                    if (player.getFireTicks() > 0 && (target.getHealth() <= 8)) {
                                                         QuestManager.clearQuest(player, "FireStrike", codename, "RoaringFlame", 1);
                                                     }
 
@@ -125,9 +125,10 @@ public class ShieldStrike implements Listener {
 
                             event.setCancelled(true);
                         }
-                    } else {
-                        BaseComponent text = new TextComponent(ChatColor.YELLOW + "남은 쿨타임: " + (((10000 - System.currentTimeMillis() + coolTime.get(player)) / 10) / 100.0) + "초");
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
+                        else {
+                            BaseComponent text = new TextComponent(ChatColor.YELLOW + "남은 쿨타임: " + (((10000 - System.currentTimeMillis() + coolTime.get(player)) / 10) / 100.0) + "초");
+                            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
+                        }
                     }
                 }
                 time.put(player, System.currentTimeMillis());

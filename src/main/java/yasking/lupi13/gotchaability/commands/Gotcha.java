@@ -12,10 +12,7 @@ import yasking.lupi13.gotchaability.FileManager;
 import yasking.lupi13.gotchaability.Functions;
 import yasking.lupi13.gotchaability.GotchaAbility;
 import yasking.lupi13.gotchaability.ItemManager;
-import yasking.lupi13.gotchaability.events.GotchaGUI;
-import yasking.lupi13.gotchaability.events.PickUpRotation;
-import yasking.lupi13.gotchaability.events.SelectGUI;
-import yasking.lupi13.gotchaability.events.ShopGUI;
+import yasking.lupi13.gotchaability.events.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,12 +42,12 @@ public class Gotcha implements CommandExecutor {
                 else if (args[0].equalsIgnoreCase("prob")) {
                     player.sendMessage("-----------------------------------------------------");
                     player.sendMessage(Functions.getColorGrade("S") + "" + ChatColor.BOLD + "S" + ChatColor.RESET + "등급은 평균 1.42%로, 약 70.2번 당 1개가 등장합니다.\n" +
-                            "1번째부터 80번째까지는 0.5%의 확률로 등장하며, 81번째부터 확률이 5%씩 오르기 시작합니다.\n" +
+                            "1번째부터 80번째까지는 0.5%의 확률로 등장하며, 81번째부터 확률이 5%p씩 오르기 시작합니다.\n" +
                             "즉, 81번째는 5.5%, 82번째는 10.5%, 83번째는 15.5% ... 99번째는 95.5%, 100번째는 100%의 확률을 갖습니다.\n" +
                             Functions.getColorGrade("S") + "" + ChatColor.BOLD + "S" + ChatColor.RESET + "등급 등장 시, 확률은 첫 0.5%로 초기화됩니다.\n");
                     player.sendMessage("-----------------------------------------------------");
                     player.sendMessage(Functions.getColorGrade("S") + "" + ChatColor.BOLD + "S" + ChatColor.RESET + "등급이 등장하지 않았을 때, " + Functions.getColorGrade("A") + "" + ChatColor.BOLD + "A" + ChatColor.RESET + "등급은 평균 12.8%로, 약 7.81번 당 1개가 등장합니다.\n" +
-                            "1번째부터 6번째까지는 3%의 확률로 등장하며, 7번째부터 확률이 30%씩 오르기 시작합니다.\n" +
+                            "1번째부터 6번째까지는 3%의 확률로 등장하며, 7번째부터 확률이 30%p씩 오르기 시작합니다.\n" +
                             "즉, 7번째는 33%, 8번째는 63%, 9번째는 93%, 10번째는 100%의 확률을 갖습니다.\n" +
                             Functions.getColorGrade("A") + "" + ChatColor.BOLD + "A" + ChatColor.RESET + "등급 등장 시, 확률은 첫 3%로 초기화됩니다.\n");
                     player.sendMessage("-----------------------------------------------------");
@@ -97,7 +94,13 @@ public class Gotcha implements CommandExecutor {
                 else if (args[0].equalsIgnoreCase("select")) {
                     Inventory select = Functions.makeSelectGUI(player, 1);
                     SelectGUI.page.put(player, 1);
-                    SelectGUI.maxPage.put(player, (Functions.getUnlockedItemStacks(player).size() / 45) + 1);
+                    player.openInventory(select);
+                }
+
+
+                else if (args[0].equalsIgnoreCase("dictionary")) {
+                    Inventory select = DictionaryGUI.makeDictionaryGUI(player, 1);
+                    DictionaryGUI.page.put(player, 1);
                     player.openInventory(select);
                 }
 
@@ -138,6 +141,17 @@ public class Gotcha implements CommandExecutor {
                                 + ChatColor.RESET + ", " + PickUpRotation.getPickUpList(i).get(2).getItemMeta().getDisplayName() + ChatColor.RESET + ", " + PickUpRotation.getPickUpList(i).get(3).getItemMeta().getDisplayName());
                         player.sendMessage("\n");
                     }
+                }
+                else if (args[0].equalsIgnoreCase("update")) {
+                    player.sendMessage("");
+                    player.sendMessage(ChatColor.AQUA + "Gotcha Ability " + ChatColor.RESET + "ver 0.2.0 업데이트 내역");
+                    player.sendMessage("-명령어에 Tab키 자동완성을 지원합니다.");
+                    player.sendMessage("-서버 시작 시 로그에 지리는 아스키아트가 추가되었습니다.");
+                    player.sendMessage("-서버 재시작 시 예정된 픽업이 변경되는 버그가 수정되었습니다.");
+                    player.sendMessage("-/gotcha dictionary 명령어로 모든 능력을 볼 수 있습니다.");
+                    player.sendMessage("-이제 " + Functions.getItemStackFromMap("HawkEye").getItemMeta().getDisplayName() + ChatColor.RESET + ", " + Functions.getItemStackFromMap("HawkEyePlus").getItemMeta().getDisplayName() + ChatColor.RESET + " 능력은 주변에 적이 없으면 쿨타임이 돌지 않습니다.");
+                    player.sendMessage("-능력 10개 추가.");
+                    player.sendMessage("-" + ChatColor.RED + "픽업으로 뽑은 능력이 추가되지 않는 엄청난 버그를 수정했습니다.");
                 }
             }
             catch (ArrayIndexOutOfBoundsException ignored) {

@@ -1,8 +1,13 @@
 package yasking.lupi13.gotchaability;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import yasking.lupi13.gotchaability.abilities.active.Chronobreak;
+import yasking.lupi13.gotchaability.abilities.active.OverBalance;
+import yasking.lupi13.gotchaability.abilities.active.TimeLeaper;
+import yasking.lupi13.gotchaability.abilities.active.TimeLeaperPlus;
 import yasking.lupi13.gotchaability.abilities.passive.*;
 import yasking.lupi13.gotchaability.commands.Gotcha;
+import yasking.lupi13.gotchaability.commands.GotchaTab;
 import yasking.lupi13.gotchaability.events.*;
 
 public final class GotchaAbility extends JavaPlugin {
@@ -62,30 +67,57 @@ public final class GotchaAbility extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HawkEye(this), this);
         getServer().getPluginManager().registerEvents(new HawkEyePlus(this), this);
         getServer().getPluginManager().registerEvents(new FocusBow(this), this);
+        getServer().getPluginManager().registerEvents(new DetailedStrike(this), this);
+        getServer().getPluginManager().registerEvents(new PrinceRupertsDrop(this), this);
+        getServer().getPluginManager().registerEvents(new TimeLeaper(this), this);
+        getServer().getPluginManager().registerEvents(new TimeLeaperPlus(this), this);
+        getServer().getPluginManager().registerEvents(new Chronobreak(this), this);
+        getServer().getPluginManager().registerEvents(new OverBalance(this), this);
+        getServer().getPluginManager().registerEvents(new DefenseAllIn(this), this);
+        getServer().getPluginManager().registerEvents(new AdaptiveDefense(this), this);
+        getServer().getPluginManager().registerEvents(new KneePropel(this), this);
+        getServer().getPluginManager().registerEvents(new Illusion(this), this);
 
         //기타 이벤트 등록
         getServer().getPluginManager().registerEvents(new Functions(this), this);
         getServer().getPluginManager().registerEvents(new JoinAndQuit(), this);
         getServer().getPluginManager().registerEvents(new DropNewbieBook(), this);
-        getServer().getPluginManager().registerEvents(new softDenying(this), this);
+        getServer().getPluginManager().registerEvents(new SoftDenying(this), this);
+        getServer().getPluginManager().registerEvents(new HardDenying(), this);
         getServer().getPluginManager().registerEvents(new ShopGUI(this), this);
         getServer().getPluginManager().registerEvents(new GotchaGUI(this), this);
         getServer().getPluginManager().registerEvents(new SelectGUI(this), this);
+        getServer().getPluginManager().registerEvents(new DictionaryGUI(this), this);
         getServer().getPluginManager().registerEvents(new QuestManager(this), this);
         ItemManager.init();
         PickUpRotation.PickUp();
+        ATTRunnable.init();
 
         //커맨드 등록
         getCommand("gotcha").setExecutor(new Gotcha(this));
+        getCommand("gotcha").setTabCompleter(new GotchaTab());
 
 
-        System.out.println("Welcome to HELL");
+        System.out.println("\u001B[36m             .                      .           .\u001B[0m\n" +
+                           "\u001B[36m         .   .     +                ;       *                          +\u001B[0m\n" +
+                           "\u001B[36m             :                  - --+- -                 |\u001B[0m\n" +
+                           "\u001B[36m     |       !           .          !                   -+-        .   .\u001B[0m\n" +
+                           "\u001B[36m    -+-      |        .             .           +        |                   +\u001B[0m\n" +
+                           "\u001B[36m     !      _|_         +   \u001B[33m _____     _       _          _____ _   _ _ _ _       \u001B[0m\n" +
+                           "\u001B[36m          ,  | `.           \u001B[33m|   __|___| |_ ___| |_ ___   |  _  | |_|_| |_| |_ _ _ \u001B[0m\n" +
+                           "\u001B[36m--  --- --+-<#>-+- ---  --  \u001B[33m|  |  | . |  _|  _|   | .'|  |     | . | | | |  _| | |\u001B[0m\n" +
+                           "\u001B[36m  .       `._|_,'           \u001B[33m|_____|___|_| |___|_|_|__,|  |__|__|___|_|_|_|_| |_  |\u001B[0m\n" +
+                           "\u001B[36m             T      .       \u001B[33m                                                 |___|\u001B[0m\n" +
+                           "\u001B[36m         *.  |                   !       *            \u001B[0m.       .     .-.. . --.\u001B[0m\n" +
+                           "\u001B[36m             !   +              -+-        .          \u001B[0m|-.. .  |  . .|-'.'| --|\u001B[0m\n" +
+                           "\u001B[36m     .       :         . :       i             -+-    \u001B[0m`-''-|  '-''-''  ''-'--'\u001B[0m\n" +
+                           "\u001B[36m             .       *             *         .        \u001B[0m   `-'           ver 0.2.0\u001B[0m\n");
     }
 
     @Override
     public void onDisable() {
         saveConfig();
 
-        System.out.println("Welcome to HELL");
+        System.out.println("GotchaAbility: saved all. Good Bye!");
     }
 }
