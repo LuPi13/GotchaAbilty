@@ -30,7 +30,8 @@ public class HawkEye implements Listener {
     String grade = "B";
     Material material = Material.MUSIC_DISC_13;
     String[] strings = {ChatColor.WHITE + "검을 우클릭하면 주변 무작위 1명의 적에게", ChatColor.WHITE + "발광을 부여합니다. 발광이 부여된 적을 처치하면", ChatColor.WHITE + "전리품이 2배로 증가하며, 랜덤한",
-            ChatColor.WHITE + "아이템 하나를 추가로 드랍합니다. (쿨타임: 20초)", ChatColor.WHITE + "" + ChatColor.ITALIC + "이 능력은 특정 조건을 통해" , ChatColor.WHITE + "" + ChatColor.ITALIC + "다른 능력을 해금할 수 있습니다.",
+            ChatColor.WHITE + "아이템 하나를 추가로 드랍합니다. (쿨타임: 20초)", ChatColor.YELLOW + "주의! 플레이어의 전리품은 2배로 증가하지 않습니다.",
+            ChatColor.WHITE + "" + ChatColor.ITALIC + "이 능력은 특정 조건을 통해" , ChatColor.WHITE + "" + ChatColor.ITALIC + "다른 능력을 해금할 수 있습니다.",
             QuestManager.getQuests(codename).get(0).toPlainText()};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
@@ -94,10 +95,13 @@ public class HawkEye implements Listener {
                 for (Material material : materials) {
                     if (!ItemManager.getRestricted().contains(material) && material.isItem()) {
                         event.setDroppedExp(event.getDroppedExp() * 2);
-                        for (ItemStack itemStack : event.getDrops()) {
-                            itemStack.setAmount(itemStack.getAmount() * 2);
+                        if (!(entity instanceof Player)) {
+                            for (ItemStack itemStack : event.getDrops()) {
+                                itemStack.setAmount(itemStack.getAmount() * 2);
+                            }
                         }
                         event.getDrops().add(new ItemStack(material, 1));
+
                         entity.getKiller().playSound(entity.getKiller().getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1F, 0.5F);
 
                         FileConfiguration playerQuest = FileManager.getQuestConfig();

@@ -1,10 +1,13 @@
 package yasking.lupi13.gotchaability;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemManager {
+    private static GotchaAbility plugin;
+
     public static List<ItemStack> cList = new ArrayList<>();
     public static List<ItemStack> csList = new ArrayList<>();
     public static List<ItemStack> bList = new ArrayList<>();
@@ -48,6 +53,7 @@ public class ItemManager {
     public static ItemStack GotchaDummy;
     public static ItemStack NextPage;
     public static ItemStack PrevPage;
+    public static ItemStack QuestHint;
 
     public static void createPossession() {
         ItemStack item = new ItemStack(Material.NETHER_STAR, 1);
@@ -58,7 +64,8 @@ public class ItemManager {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         List<String> lore = new ArrayList<>();
-        lore.add(ChatColor.WHITE + "당신의 앞날이 더욱 더 빛날 것입니다.");
+        lore.add(ChatColor.WHITE + "/gotcha run 에서 해당 아이템 1개를");
+        lore.add(ChatColor.WHITE + "소모하여 능력 하나를 뽑습니다.");
         meta.setLore(lore);
         item.setItemMeta(meta);
         softDenyList.add(item);
@@ -153,6 +160,9 @@ public class ItemManager {
                 "\n\n'/gotcha run' 명령어로, " + PossessionName + ChatColor.RESET + "을 이용하여 능력을 뽑습니다.");
         meta.addPage("'/gotcha select' 명령어로, " + ChatColor.LIGHT_PURPLE + WillName + ChatColor.RESET + "을 이용하여 능력을 정합니다. 좌클릭하여 능력을 적용하고, 쉬프트 좌클릭하여 능력에 있는 업적들을 채팅창에 표시합니다." +
                 "\n\n'/gotcha prob' 명령어로, 가챠 확률을 상세히 볼 수 있습니다.");
+        meta.addPage("이하는 추가 명령어 설명입니다." +
+                "\n /gotcha dictionary: 모든 능력을 봅니다." +
+                "\n /gotcha update: 최근 업데이트 정보를 봅니다.");
         meta.addPage("당신의 앞날을 기원하며, " + PossessionName + ChatColor.RESET + " 10개와, A, B, C등급 " + ChatColor.LIGHT_PURPLE + WillName + ChatColor.RESET + "을 1개씩 드립니다." +
                 "\n 이 책은 버리면 즉시 사라지며, '/gotcha help'로 다시 볼 수 있습니다.");
         meta.setDisplayName("가챠 능력자 도움말");
@@ -170,7 +180,7 @@ public class ItemManager {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.WHITE + "클릭하여 " + PossessionName + ChatColor.RESET + "" + ChatColor.WHITE + "을");
-        lore.add(ChatColor.WHITE + "하나 소모하여 능력을 뽑습니다!");
+        lore.add(ChatColor.WHITE + "하나 소모하여 능력을 뽑습니다.");
         lore.add(ChatColor.WHITE + "쉬프트를 누른 상태로 클릭하면");
         lore.add(ChatColor.WHITE + "10연속 뽑기를 합니다.");
         meta.setLore(lore);
@@ -188,7 +198,6 @@ public class ItemManager {
         item.setItemMeta(meta);
         Close = item;
     }
-
      */
 
     public static void createGotchaDummy() {
@@ -221,6 +230,22 @@ public class ItemManager {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         PrevPage = item;
+    }
+
+    public static void createQuestHint() {
+        ItemStack item = new ItemStack(Material.PAPER, 1);
+        ItemMeta meta = item.getItemMeta();
+        assert  meta != null;
+        meta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "마법의 종이");
+        meta.addEnchant(Enchantment.LUCK, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.WHITE + "우클릭하여 아무 업적 하나를 알아냅니다.");
+        meta.setLore(lore);
+
+        item.setItemMeta(meta);
+        QuestHint = item;
     }
 
 
@@ -265,5 +290,10 @@ public class ItemManager {
         createGotchaDummy();
         createNextPage();
         createPrevPage();
+        createQuestHint();
+    }
+
+    public static void setPlugin(GotchaAbility plugin) {
+        ItemManager.plugin = plugin;
     }
 }

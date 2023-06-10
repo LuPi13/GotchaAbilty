@@ -21,7 +21,7 @@ import java.util.List;
 public class LetsBoom implements Listener {
     private GotchaAbility plugin;
 
-    String name = "함께 폭★4하자";
+    String name = "함께 폭⛤4하자";
     String codename = "LetsBoom";
     String grade = "C";
     String displayName = Functions.makeDisplayName(name, grade);

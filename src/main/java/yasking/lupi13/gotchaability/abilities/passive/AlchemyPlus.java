@@ -24,7 +24,7 @@ public class AlchemyPlus implements Listener {
     String codename = "AlchemyPlus";
     String grade = "B*";
     Material material = Material.RAW_GOLD;
-    String[] strings = {ChatColor.WHITE + "석탄 확률이 크게 줄고, 금 확률이 크게 늘어납니다."};
+    String[] strings = {Functions.getItemStackFromMap("Alchemy").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "석탄 확률이 크게 줄고, 금 확률이 크게 늘어납니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

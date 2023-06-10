@@ -35,8 +35,8 @@ public class RoaringFlame implements Listener {
     String name = "포효하는 불길";
     String codename = "RoaringFlame";
     String grade = "A*";
-    Material material = Material.RED_DYE;
-    String[] strings = {ChatColor.WHITE + "적과 부딪히면 5초간 불태우고,", ChatColor.WHITE + "전방으로 불을 지핍니다."};
+    Material material = Material.BURN_POTTERY_SHERD;
+    String[] strings = {Functions.getItemStackFromMap("ShieldStrike").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "적과 부딪히면 5초간 불태우고,", ChatColor.WHITE + "전방으로 불을 지핍니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 
@@ -45,7 +45,6 @@ public class RoaringFlame implements Listener {
         Functions.putList(item, grade);
         ItemManager.codenameMap.put(item, codename);
     }
-
 
 
 

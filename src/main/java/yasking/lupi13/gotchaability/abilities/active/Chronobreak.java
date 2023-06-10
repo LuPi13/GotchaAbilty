@@ -34,7 +34,7 @@ public class Chronobreak implements Listener {
     String codename = "Chronobreak";
     String grade = "S*";
     Material material = Material.MUSIC_DISC_5;
-    String[] strings = {ChatColor.WHITE + "시간 역행 후 도착 지점 주변에 있는", ChatColor.WHITE + "모든 적에게 최대체력의 50%에 해당하는", ChatColor.WHITE + "피해를 줍니다. 준 피해에 비례하여 흡수효과를"
+    String[] strings = {Functions.getItemStackFromMap("TimeLeaper").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "시간 역행 후 도착 지점 주변에 있는", ChatColor.WHITE + "모든 적에게 최대체력의 50%에 해당하는", ChatColor.WHITE + "피해를 줍니다. 준 피해에 비례하여 흡수효과를"
             , ChatColor.WHITE + "얻습니다. 쿨타임이 20초로 감소합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));

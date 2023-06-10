@@ -28,7 +28,7 @@ public class SelectGUI implements Listener {
     public static Map<Player, Integer> page = new HashMap<>();
 
 
-    public void activeSet(Player player, ItemStack item) {
+    public static void activeSet(Player player, ItemStack item) {
         if (ItemManager.activeList.contains(item)) {
             try {
                 ItemStack offHandItem = player.getInventory().getItemInOffHand();
@@ -59,11 +59,11 @@ public class SelectGUI implements Listener {
                     event.setCancelled(true);
                     return;
                 }
-
                 /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
-                    player.closeInventory();
                     event.setCancelled(true);
+                    player.closeInventory();
+                    return;
                 }
                  */
 
@@ -127,6 +127,7 @@ public class SelectGUI implements Listener {
                                     abilities.add(codename);
                                 }
                                 FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
                                 FileManager.saveAbility();
 
                                 player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
@@ -153,6 +154,7 @@ public class SelectGUI implements Listener {
                                     abilities.add(codename);
                                 }
                                 FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
                                 FileManager.saveAbility();
 
                                 player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
@@ -179,6 +181,7 @@ public class SelectGUI implements Listener {
                                     abilities.add(codename);
                                 }
                                 FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
                                 FileManager.saveAbility();
 
                                 player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
@@ -205,6 +208,7 @@ public class SelectGUI implements Listener {
                                     abilities.add(codename);
                                 }
                                 FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
                                 FileManager.saveAbility();
 
                                 player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
@@ -231,6 +235,7 @@ public class SelectGUI implements Listener {
                                     abilities.add(codename);
                                 }
                                 FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
                                 FileManager.saveAbility();
 
                                 player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");

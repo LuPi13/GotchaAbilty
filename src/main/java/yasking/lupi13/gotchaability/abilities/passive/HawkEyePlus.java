@@ -28,7 +28,7 @@ public class HawkEyePlus implements Listener {
     String codename = "HawkEyePlus";
     String grade = "B*";
     Material material = Material.MUSIC_DISC_13;
-    String[] strings = {ChatColor.WHITE + "쿨타임이 10초로 감소합니다. 추가 아이템을", ChatColor.WHITE + "하나 더 드랍합니다."};
+    String[] strings = {Functions.getItemStackFromMap("HawkEye").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "쿨타임이 10초로 감소합니다. 추가 아이템을", ChatColor.WHITE + "하나 더 드랍합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

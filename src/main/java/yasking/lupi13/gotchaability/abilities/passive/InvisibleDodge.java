@@ -29,7 +29,7 @@ public class InvisibleDodge implements Listener {
     String codename = "InvisibleDodge";
     String grade = "A*";
     Material material = Material.FROGSPAWN;
-    String[] strings = {ChatColor.WHITE + "회피 후 은신합니다. 5초가 지나거나, 공격하거나,", ChatColor.WHITE + "피해를 입으면 투명상태에서 벗어납니다.",
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피 후 은신합니다. 5초가 지나거나, 공격하거나,", ChatColor.WHITE + "피해를 입으면 투명상태에서 벗어납니다.",
             ChatColor.WHITE + "은신 시전/해제 시 자동으로 갑옷이 탈착/장착됩니다.", ChatColor.WHITE + "" + ChatColor.ITALIC + "from. " + ChatColor.BOLD + "DESTINY 2",
             ChatColor.WHITE + "" + ChatColor.ITALIC + "이 능력은 특정 조건을 통해" , ChatColor.WHITE + "" + ChatColor.ITALIC + "다른 능력을 해금할 수 있습니다.",
             QuestManager.getQuests(codename).get(0).toPlainText()};
@@ -114,6 +114,19 @@ public class InvisibleDodge implements Listener {
                                         for (int i = 36; i <= 39; i++) {
                                             if (!armors.get(player).get(i - 36).getType().equals(Material.JIGSAW)) {
                                                 player.getInventory().setItem(i, armors.get(player).get(i - 36));
+                                            }
+                                            if (i == 39) {
+                                                player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_GOLD, 1F, 1F);
+                                            }
+                                        }
+                                        timer.put(player, 0);
+                                        cancel();
+                                    }
+
+                                    if (player.isDead()) {
+                                        for (ItemStack item : armors.get(player)) {
+                                            if (!item.getType().equals(Material.JIGSAW)) {
+                                                player.getWorld().dropItemNaturally(player.getLocation(), item);
                                             }
                                         }
                                         timer.put(player, 0);

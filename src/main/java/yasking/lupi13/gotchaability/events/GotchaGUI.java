@@ -35,11 +35,12 @@ public class GotchaGUI implements Listener {
             if (event.isLeftClick()) {
                 /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
-                    player.closeInventory();
                     event.setCancelled(true);
+                    player.closeInventory();
+                    return;
                 }
-
                  */
+
                 if (event.getCurrentItem().equals(ItemManager.GotchaDummy)) {
                     event.setCancelled(true);
                 }

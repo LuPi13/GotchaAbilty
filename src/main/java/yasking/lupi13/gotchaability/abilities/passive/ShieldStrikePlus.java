@@ -32,7 +32,7 @@ public class ShieldStrikePlus implements Listener {
     String codename = "ShieldStrikePlus";
     String grade = "B*";
     Material material = Material.SHIELD;
-    String[] strings = {ChatColor.WHITE + "더 빠르고 멀리 돌진합니다. 돌진이", ChatColor.WHITE + "끝나는 시점에 부딪히거나, 적을 처치하면", ChatColor.WHITE + "쿨타임이 초기화됩니다."};
+    String[] strings = {Functions.getItemStackFromMap("ShieldStrike").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "더 빠르고 멀리 돌진합니다. 돌진이", ChatColor.WHITE + "끝나는 시점에 부딪히거나, 적을 처치하면", ChatColor.WHITE + "쿨타임이 초기화됩니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 
@@ -55,7 +55,7 @@ public class ShieldStrikePlus implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.isSneaking() && player.isOnGround()) {
+            if (event.isSneaking() && ((LivingEntity) player).isOnGround()) {
                 if ((time.get(player) != null) && ((System.currentTimeMillis() - time.get(player)) <= 300)) {
                     if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 10000))) {
                         if (player.getInventory().getItemInMainHand().getType().equals(Material.SHIELD)

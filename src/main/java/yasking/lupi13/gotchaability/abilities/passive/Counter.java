@@ -1,10 +1,7 @@
 package yasking.lupi13.gotchaability.abilities.passive;
 
 import org.bukkit.*;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -80,6 +77,11 @@ public class Counter implements Listener {
                 if ((timer.get(player) != null) && (System.currentTimeMillis() - timer.get(player) <= 500)) {
                     double damage = event.getDamage();
                     player.getWorld().playSound(player.getLocation(), Sound.ITEM_TRIDENT_HIT_GROUND, 1F, 2F);
+                    Interaction hitbox = player.getWorld().spawn(player.getEyeLocation().add(player.getLocation().getDirection().multiply(2).subtract(new Vector(0, 0.5, 0))), Interaction.class);
+                    hitbox.setGravity(false);
+                    hitbox.setInvulnerable(true);
+                    hitbox.setInteractionHeight(1);
+                    hitbox.setInteractionWidth(3);
                     List<Entity> entities = player.getNearbyEntities(4, 4, 4);
 
                     new BukkitRunnable() {
@@ -87,8 +89,7 @@ public class Counter implements Listener {
                         public void run() {
                             for (Entity entity : entities) {
                                 if (entity instanceof LivingEntity) {
-                                    Vector line = (entity.getBoundingBox().getCenter().subtract(player.getBoundingBox().getCenter())).normalize();
-                                    if (line.dot(player.getLocation().getDirection().normalize()) >= Math.cos(Math.toRadians(60))) {
+                                    if (entity.getBoundingBox().overlaps(hitbox.getBoundingBox())) {
                                         ((LivingEntity) entity).damage(damage * 2);
                                         entity.setVelocity((player.getLocation().getDirection().setY(0).normalize().multiply(0.5).setY(0.1)));
                                     }
@@ -97,6 +98,7 @@ public class Counter implements Listener {
                             }
                             player.spawnParticle(Particle.SWEEP_ATTACK, player.getEyeLocation().add(player.getLocation().getDirection().normalize().multiply(0.1)), 1, 0, 0, 0);
                             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1F, 1F);
+                            hitbox.remove();
                             cancel();
                         }
                     }.runTaskTimer(plugin, 10L, 1L);

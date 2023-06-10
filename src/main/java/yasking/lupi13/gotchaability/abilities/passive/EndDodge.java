@@ -29,7 +29,7 @@ public class EndDodge implements Listener {
     String codename = "EndDodge";
     String grade = "B*";
     Material material = Material.ENDER_PEARL;
-    String[] strings = {ChatColor.WHITE + "회피를 텔레포트로 변경합니다."};
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피를 텔레포트로 변경합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

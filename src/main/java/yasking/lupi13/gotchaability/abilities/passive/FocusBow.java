@@ -1,6 +1,7 @@
 package yasking.lupi13.gotchaability.abilities.passive;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.LivingEntity;
@@ -28,7 +29,7 @@ public class FocusBow implements Listener {
     String name = "집중의 활시위";
     String codename = "FocusBow";
     String grade = "A";
-    Material material = Material.BOW;
+    Material material = Material.ARCHER_POTTERY_SHERD;
     String[] strings = {ChatColor.WHITE + "공중에서 활시위를 당기면 시야가 확대되고", ChatColor.WHITE + "제자리에서 아주 느리게 낙하합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
@@ -49,7 +50,7 @@ public class FocusBow implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.getItem() != null && event.getItem().getType().equals(Material.BOW) && ((Functions.countItems(player, Material.ARROW) >= 1) || (Functions.countItems(player, Material.TIPPED_ARROW) >= 1)|| (Functions.countItems(player, Material.SPECTRAL_ARROW) >= 1))) {
+            if (event.getItem() != null && event.getItem().getType().equals(Material.BOW) && (player.getGameMode().equals(GameMode.CREATIVE) || ((Functions.countItems(player, Material.ARROW) >= 1) || (Functions.countItems(player, Material.TIPPED_ARROW) >= 1)|| (Functions.countItems(player, Material.SPECTRAL_ARROW) >= 1)))) {
                 if (!((LivingEntity) player).isOnGround()) {
                     time.put(player, System.currentTimeMillis());
                     toggle.put(player, 1);

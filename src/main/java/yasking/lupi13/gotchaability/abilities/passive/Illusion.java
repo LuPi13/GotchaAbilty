@@ -22,7 +22,7 @@ public class Illusion implements Listener {
     String name = "도깨비불";
     String codename = "Illusion";
     String grade = "A";
-    Material material = Material.BLAZE_POWDER;
+    Material material = Material.EYE_ARMOR_TRIM_SMITHING_TEMPLATE;
     String[] strings = {ChatColor.WHITE + "눈이 마주친 적에게 실명을 부여합니다.", ChatColor.GRAY + "" + ChatColor.ITALIC + "겁내지 말고 이리온"};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));

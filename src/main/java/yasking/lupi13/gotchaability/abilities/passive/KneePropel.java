@@ -35,7 +35,7 @@ public class KneePropel implements Listener {
     String name = "무릎을 꿇은 이유";
     String codename = "KneePropel";
     String grade = "C";
-    Material material = Material.PISTON;
+    Material material = Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
     String[] strings = {ChatColor.WHITE + "웅크렸다가 점프하면 추진력을 얻어", ChatColor.WHITE + "더 높이 도약합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
@@ -115,7 +115,7 @@ public class KneePropel implements Listener {
                                 break;
                         }
 
-                        BaseComponent text = new TextComponent( color + "" + ChatColor.BOLD + gauge);
+                        BaseComponent text = new TextComponent(color + "" + ChatColor.BOLD + gauge);
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
 
                         if (timer.get(player) != -1) {
@@ -133,6 +133,11 @@ public class KneePropel implements Listener {
                                 player.playSound(player.getLocation(), Sound.ENTITY_VEX_HURT, 1F, 0.5F);
                                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.GRAY + "" + ChatColor.BOLD + "Cancelled."));
                             }
+                            timer.put(player, -1);
+                            cancel();
+                        }
+
+                        if (player.isDead()) {
                             timer.put(player, -1);
                             cancel();
                         }

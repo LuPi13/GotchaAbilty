@@ -28,6 +28,7 @@ public class GotchaTab implements TabCompleter {
                 list.add("pickup");
                 list.add("alchemy");
                 list.add("dictionary");
+                list.add("dict");
 
                 StringUtil.copyPartialMatches(args[0], list, completions);
             }

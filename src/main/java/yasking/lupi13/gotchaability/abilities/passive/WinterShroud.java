@@ -32,7 +32,8 @@ public class WinterShroud implements Listener {
     String codename = "WinterShroud";
     String grade = "A*";
     Material material = Material.WHITE_DYE;
-    String[] strings = {ChatColor.WHITE + "회피 시 주변 적들을 얼립니다.", ChatColor.WHITE + "" + ChatColor.ITALIC + "from. " + ChatColor.BOLD + "DESTINY 2"};
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피 시 주변 적들을 얼립니다.",
+            ChatColor.WHITE + "" + ChatColor.ITALIC + "from. " + ChatColor.BOLD + "DESTINY 2"};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

@@ -98,7 +98,7 @@ public class Gotcha implements CommandExecutor {
                 }
 
 
-                else if (args[0].equalsIgnoreCase("dictionary")) {
+                else if (args[0].equalsIgnoreCase("dictionary") || args[0].equalsIgnoreCase("dict")) {
                     Inventory select = DictionaryGUI.makeDictionaryGUI(player, 1);
                     DictionaryGUI.page.put(player, 1);
                     player.openInventory(select);
@@ -144,14 +144,15 @@ public class Gotcha implements CommandExecutor {
                 }
                 else if (args[0].equalsIgnoreCase("update")) {
                     player.sendMessage("");
-                    player.sendMessage(ChatColor.AQUA + "Gotcha Ability " + ChatColor.RESET + "ver 0.2.0 업데이트 내역");
-                    player.sendMessage("-명령어에 Tab키 자동완성을 지원합니다.");
-                    player.sendMessage("-서버 시작 시 로그에 지리는 아스키아트가 추가되었습니다.");
-                    player.sendMessage("-서버 재시작 시 예정된 픽업이 변경되는 버그가 수정되었습니다.");
-                    player.sendMessage("-/gotcha dictionary 명령어로 모든 능력을 볼 수 있습니다.");
-                    player.sendMessage("-이제 " + Functions.getItemStackFromMap("HawkEye").getItemMeta().getDisplayName() + ChatColor.RESET + ", " + Functions.getItemStackFromMap("HawkEyePlus").getItemMeta().getDisplayName() + ChatColor.RESET + " 능력은 주변에 적이 없으면 쿨타임이 돌지 않습니다.");
+                    player.sendMessage(ChatColor.AQUA + "Gotcha Ability " + ChatColor.RESET + "ver 0.3.0 업데이트 내역");
+                    player.sendMessage("-이제 마인크래프트 1.20버전만을 지원합니다.");
+                    player.sendMessage("-몇몇 능력의 아이콘을 더 직관적인 아이템으로 변경했습니다.");
                     player.sendMessage("-능력 10개 추가.");
-                    player.sendMessage("-" + ChatColor.RED + "픽업으로 뽑은 능력이 추가되지 않는 엄청난 버그를 수정했습니다.");
+                    player.sendMessage("-숨겨진 업적의 내용을 알아낼 수 있는 아이템이 추가되었습니다. 다이아몬드, 자수정 조각, 깃털, 종이 각각 하나씩을 모양 없이 조합하면 됩니다.");
+                    player.sendMessage("-이제 /gotcha dictionary에서도 보유한 능력 클릭 시 능력이 적용됩니다.");
+                    player.sendMessage("-갑옷이 탈/장착 되는 은신 중에 사망 시 갑옷을 드랍하지 않는 버그를 수정했습니다.");
+                    player.sendMessage("-" + Functions.makeDisplayName("매의 눈", "B") + ChatColor.RESET + ", " + Functions.makeDisplayName("매의 눈+", "B*") + ChatColor.RESET + " 능력으로 플레이어를 처치 시 플레이어의 인벤토리 또한 두배로 증식하여 2명이서 아이템 복사 행위를 방지하기 위해, 플레이어의 전리품은 2배로 증가하지 않습니다.");
+
                 }
             }
             catch (ArrayIndexOutOfBoundsException ignored) {

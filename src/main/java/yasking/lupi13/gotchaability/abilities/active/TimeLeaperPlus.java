@@ -30,7 +30,7 @@ public class TimeLeaperPlus implements Listener {
     String codename = "TimeLeaperPlus";
     String grade = "A*";
     Material material = Material.CLOCK;
-    String[] strings = {ChatColor.WHITE + "시간 역행 시 회복하는 체력이 1.5배 증가합니다.", ChatColor.WHITE + "쿨타임이 20초로 감소합니다."};
+    String[] strings = {Functions.getItemStackFromMap("TimeLeaper").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "시간 역행 시 회복하는 체력이 1.5배 증가합니다.", ChatColor.WHITE + "쿨타임이 20초로 감소합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

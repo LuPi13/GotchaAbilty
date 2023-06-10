@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +31,7 @@ public class LightReflex implements Listener {
     String codename = "LightReflex";
     String grade = "B*";
     Material material = Material.SCULK_VEIN;
-    String[] strings = {ChatColor.WHITE + "회피중에 받는 피해가 90% 감소합니다."};
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피중에 받는 피해가 90% 감소합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 
@@ -51,7 +52,7 @@ public class LightReflex implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.isSneaking() && player.isOnGround()) {
+            if (event.isSneaking() && ((LivingEntity) player).isOnGround()) {
                 if ((time.get(player) != null) && ((System.currentTimeMillis() - time.get(player)) <= 300)) {
                     if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 10000))) {
                         coolTime.put(player, System.currentTimeMillis());

@@ -1,10 +1,11 @@
 package yasking.lupi13.gotchaability;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
-import yasking.lupi13.gotchaability.abilities.active.Chronobreak;
-import yasking.lupi13.gotchaability.abilities.active.OverBalance;
-import yasking.lupi13.gotchaability.abilities.active.TimeLeaper;
-import yasking.lupi13.gotchaability.abilities.active.TimeLeaperPlus;
+import yasking.lupi13.gotchaability.abilities.active.*;
 import yasking.lupi13.gotchaability.abilities.passive.*;
 import yasking.lupi13.gotchaability.commands.Gotcha;
 import yasking.lupi13.gotchaability.commands.GotchaTab;
@@ -73,10 +74,20 @@ public final class GotchaAbility extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TimeLeaperPlus(this), this);
         getServer().getPluginManager().registerEvents(new Chronobreak(this), this);
         getServer().getPluginManager().registerEvents(new OverBalance(this), this);
+        getServer().getPluginManager().registerEvents(new OverBalancePlus(this), this);
         getServer().getPluginManager().registerEvents(new DefenseAllIn(this), this);
         getServer().getPluginManager().registerEvents(new AdaptiveDefense(this), this);
         getServer().getPluginManager().registerEvents(new KneePropel(this), this);
         getServer().getPluginManager().registerEvents(new Illusion(this), this);
+        getServer().getPluginManager().registerEvents(new Cloak(this), this);
+        getServer().getPluginManager().registerEvents(new SuperCloak(this), this);
+        getServer().getPluginManager().registerEvents(new GatheringStorm(this), this);
+        getServer().getPluginManager().registerEvents(new WebShooter(this), this);
+        getServer().getPluginManager().registerEvents(new HandCannon(this), this);
+        getServer().getPluginManager().registerEvents(new PulseCannon(this), this);
+        getServer().getPluginManager().registerEvents(new ExplosionMove(this), this);
+        getServer().getPluginManager().registerEvents(new ChargeShot(this), this);
+        getServer().getPluginManager().registerEvents(new RealHandCannon(this), this);
 
         //기타 이벤트 등록
         getServer().getPluginManager().registerEvents(new Functions(this), this);
@@ -89,9 +100,19 @@ public final class GotchaAbility extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SelectGUI(this), this);
         getServer().getPluginManager().registerEvents(new DictionaryGUI(this), this);
         getServer().getPluginManager().registerEvents(new QuestManager(this), this);
+        getServer().getPluginManager().registerEvents(new QuestHint(), this);
         ItemManager.init();
         PickUpRotation.PickUp();
         ATTRunnable.init();
+
+        //조합법 등록
+        ShapelessRecipe recipe = new ShapelessRecipe(new NamespacedKey(this, "questhint"), ItemManager.QuestHint);
+        recipe.addIngredient(Material.PAPER);
+        recipe.addIngredient(Material.DIAMOND);
+        recipe.addIngredient(Material.AMETHYST_SHARD);
+        recipe.addIngredient(Material.FEATHER);
+        Bukkit.addRecipe(recipe);
+
 
         //커맨드 등록
         getCommand("gotcha").setExecutor(new Gotcha(this));
@@ -111,7 +132,7 @@ public final class GotchaAbility extends JavaPlugin {
                            "\u001B[36m         *.  |                   !       *            \u001B[0m.       .     .-.. . --.\u001B[0m\n" +
                            "\u001B[36m             !   +              -+-        .          \u001B[0m|-.. .  |  . .|-'.'| --|\u001B[0m\n" +
                            "\u001B[36m     .       :         . :       i             -+-    \u001B[0m`-''-|  '-''-''  ''-'--'\u001B[0m\n" +
-                           "\u001B[36m             .       *             *         .        \u001B[0m   `-'           ver 0.2.0\u001B[0m\n");
+                           "\u001B[36m             .       *             *         .        \u001B[0m   `-'           ver 0.3.0\u001B[0m\n");
     }
 
     @Override

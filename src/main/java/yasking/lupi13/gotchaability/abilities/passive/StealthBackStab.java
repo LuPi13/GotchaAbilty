@@ -26,7 +26,7 @@ public class StealthBackStab implements Listener {
     String codename = "StealthBackStab";
     String grade = "B*";
     Material material = Material.GOLDEN_SWORD;
-    String[] strings = {ChatColor.WHITE + "웅크리면 적의 감지범위가 3칸으로 줄어듭니다."};
+    String[] strings = {Functions.getItemStackFromMap("BackStab").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "웅크리면 적의 감지범위가 3칸으로 줄어듭니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 

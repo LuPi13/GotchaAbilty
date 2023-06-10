@@ -167,6 +167,58 @@ public class QuestManager implements Listener {
                 quests.add(LightTime);
                 quests.add(DarkTime);
                 break;
+
+            case "OverBalance":
+                BaseComponent Hikariyo = new TextComponent(ChatColor.WHITE + "빛이여!");
+                String HikariyoDetail = "이 능력으로 엔더드래곤을 처치하세요. (능력 해금: " + Functions.makeDisplayName("밸런스 붕괴+", "S*") + ChatColor.RESET + ")";
+                Hikariyo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("???")));
+                QuestDetail.put(Hikariyo, HikariyoDetail);
+
+                quests.add(Hikariyo);
+                break;
+
+            case "Cloak":
+                BaseComponent MoebiusReactor = new TextComponent(ChatColor.WHITE + "뫼비우스 반응로");
+                String MoebiusReactorDetail = "게이지 200을 끊지 않고 모두 사용하세요. (능력 해금: " + Functions.makeDisplayName("초은폐", "SS*") + ChatColor.RESET + ")";
+                MoebiusReactor.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("???")));
+                QuestDetail.put(MoebiusReactor, MoebiusReactorDetail);
+
+                quests.add(MoebiusReactor);
+                break;
+
+            case "HandCannon":
+                BaseComponent NogadaKing = new TextComponent(ChatColor.WHITE + "노가다의 왕");
+                String NogadaKingDetail = "핸드캐논으로 100킬 하세요. (능력 해금: " + Functions.makeDisplayName("익스플로전 무브", "B*") + ChatColor.RESET + ")";
+                NogadaKing.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("핸드캐논으로 100킬 하세요. (능력 해금: " + Functions.makeDisplayName("익스플로전 무브", "B*") + ChatColor.RESET + ")")));
+                QuestDetail.put(NogadaKing, NogadaKingDetail);
+
+                BaseComponent TriggerFinger = new TextComponent(ChatColor.YELLOW + "TRIGGER FINGER!");
+                String TriggerFingerDetail = "핸드캐논을 1초에 20번 사격하세요. (능력 해금: " + Functions.makeDisplayName("펄스캐논", "C*") + ChatColor.RESET + ")";
+                TriggerFinger.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("It's BOSHY TIME!")));
+                QuestDetail.put(TriggerFinger, TriggerFingerDetail);
+
+                BaseComponent NoHurt = new TextComponent(ChatColor.RED + "손가락 안아파요?");
+                String NoHurtDetail = "핸드캐논을 총 3000회 사격하세요. (능력 해금: " + Functions.makeDisplayName("차지샷", "B*") + ChatColor.RESET + ")";
+                NoHurt.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("핸드캐논을 총 3000회 사격하세요. (능력 해금: " + Functions.makeDisplayName("차지샷", "B*") + ChatColor.RESET + ")")));
+                QuestDetail.put(NoHurt, NoHurtDetail);
+
+                BaseComponent BoldForBoom = new TextComponent(ChatColor.DARK_RED + "폭파를 위한 대담함");
+                String BoldForBoomDetail = "핸드캐논으로 충전된 크리퍼를 처치하세요. (능력 해금: " + Functions.makeDisplayName("진짜 핸드 '캐논'", "A*") + ChatColor.RESET + ")";
+                BoldForBoom.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("???")));
+                QuestDetail.put(BoldForBoom, BoldForBoomDetail);
+
+                BaseComponent OffHandMaster = new TextComponent(ChatColor.AQUA + "오프핸드 마스터");
+                String OffHandMasterDetail = "핸드캐논의 모든 상위 능력을 해금하세요. (현재 모든 상위 능력이 개발되지 않아 달성 불가능한 업적입니다.) (능력 해금: " + Functions.makeDisplayName("마스터 오프핸드", "S*") + ChatColor.RESET + ")";
+                OffHandMaster.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("핸드캐논의 모든 상위 능력을 해금하세요. (현재 모든 상위 능력이 개발되지 않아 달성 불가능한 업적입니다.) (능력 해금: " + Functions.makeDisplayName("마스터 오프핸드", "S*") + ChatColor.RESET + ")")));
+                QuestDetail.put(OffHandMaster, OffHandMasterDetail);
+
+                quests.add(NogadaKing);
+                quests.add(TriggerFinger);
+                quests.add(NoHurt);
+                quests.add(BoldForBoom);
+                quests.add(OffHandMaster);
+                break;
+
         }
 
         return quests;

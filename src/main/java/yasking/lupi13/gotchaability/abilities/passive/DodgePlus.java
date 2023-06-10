@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,7 @@ public class DodgePlus implements Listener {
     String codename = "DodgePlus";
     String grade = "C*";
     Material material = Material.RABBIT_FOOT;
-    String[] strings = {ChatColor.WHITE + "회피 쿨타임이 5초로 감소합니다."};
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피 쿨타임이 5초로 감소합니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 
@@ -48,7 +49,7 @@ public class DodgePlus implements Listener {
         Player player = event.getPlayer();
         List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
         if (abilities.contains(codename)) {
-            if (event.isSneaking() && player.isOnGround()) {
+            if (event.isSneaking() && ((LivingEntity) player).isOnGround()) {
                 if ((time.get(player) != null) && ((System.currentTimeMillis() - time.get(player)) <= 300)) {
                     if ((coolTime.get(player) == null) || ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) >= 5000))) {
                         coolTime.put(player, System.currentTimeMillis());

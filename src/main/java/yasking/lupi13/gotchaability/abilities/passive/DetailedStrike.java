@@ -23,7 +23,7 @@ public class DetailedStrike implements Listener {
     String name = "섬세한 일격";
     String codename = "DetailedStrike";
     String grade = "A";
-    Material material = Material.SHEARS;
+    Material material = Material.BLADE_POTTERY_SHERD;
     String[] strings = {ChatColor.WHITE + "가하는 모든 피해가 절반으로 줄어드는 대신,", ChatColor.WHITE + "적의 남은 체력에 비례하여 확률적으로 즉사시킵니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));

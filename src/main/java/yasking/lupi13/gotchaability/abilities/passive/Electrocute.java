@@ -27,7 +27,7 @@ public class Electrocute implements Listener {
     String name = "감전";
     String codename = "Electrocute";
     String grade = "A";
-    Material material = Material.TIPPED_ARROW;
+    Material material = Material.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE;
     String[] strings = {ChatColor.WHITE + "번개피해에 면역이 됩니다." , ChatColor.WHITE + "각 1초 간격 내로 3회 연속 공격 시", ChatColor.WHITE + "적에게 번개를 떨어뜨립니다.",
     ChatColor.WHITE + "" + ChatColor.ITALIC + "from. " + ChatColor.GOLD + "" + ChatColor.BOLD + "LEAGUE of LEGENDS"};
     String displayName = Functions.makeDisplayName(name, grade);

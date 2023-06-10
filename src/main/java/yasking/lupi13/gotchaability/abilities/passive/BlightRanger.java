@@ -27,7 +27,7 @@ public class BlightRanger implements Listener {
     String codename = "BlightRanger";
     String grade = "SS*";
     Material material = Material.WITHER_SKELETON_SKULL;
-    String[] strings = {ChatColor.WHITE + "은신 지속시간이 7초로 늘어납니다.", ChatColor.WHITE + "회피하면 은신과 함께 연막을 뿌리고, ", ChatColor.WHITE + "이동속도 증가를 얻습니다. 연막에", ChatColor.WHITE + "맞은 적은 약화됩니다. 또, 어둠 속에서",
+    String[] strings = {Functions.getItemStackFromMap("InvisibleDodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "은신 지속시간이 7초로 늘어납니다.", ChatColor.WHITE + "회피하면 은신과 함께 연막을 뿌리고, ", ChatColor.WHITE + "이동속도 증가를 얻습니다. 연막에", ChatColor.WHITE + "맞은 적은 약화됩니다. 또, 어둠 속에서",
             ChatColor.WHITE + "7명의 분신이 생겨납니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
@@ -146,6 +146,16 @@ public class BlightRanger implements Listener {
                                         timer.put(player, 0);
                                         cancel();
                                     }
+                                    if (player.isDead()) {
+                                        for (ItemStack item : armors.get(player)) {
+                                            if (!item.getType().equals(Material.JIGSAW)) {
+                                                player.getWorld().dropItemNaturally(player.getLocation(), item);
+                                            }
+                                        }
+                                        timer.put(player, 0);
+                                        cancel();
+                                    }
+
                                     timer.put(player, timer.get(player) + 1);
                                 }
                             }.runTaskTimer(plugin, 0L, 1L);

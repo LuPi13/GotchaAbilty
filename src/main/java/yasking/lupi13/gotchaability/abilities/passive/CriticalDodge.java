@@ -26,7 +26,7 @@ public class CriticalDodge implements Listener {
     String codename = "CriticalDodge";
     String grade = "A*";
     Material material = Material.TARGET;
-    String[] strings = {ChatColor.WHITE + "회피 후 3초 내의 첫 공격이 1.5배의 피해를 입힙니다.", ChatColor.WHITE + "이 효과로 적 처치 시 쿨타임이 5초 줄어듭니다."};
+    String[] strings = {Functions.getItemStackFromMap("Dodge").getItemMeta().getDisplayName() + ChatColor.WHITE + " 능력을 계승합니다.", ChatColor.WHITE + "회피 후 3초 내의 첫 공격이 1.5배의 피해를 입힙니다.", ChatColor.WHITE + "이 효과로 적 처치 시 쿨타임이 5초 줄어듭니다."};
     String displayName = Functions.makeDisplayName(name, grade);
     ItemStack item = Functions.makeDisplayItem(material, displayName, Arrays.asList(strings));
 
@@ -90,7 +90,7 @@ public class CriticalDodge implements Listener {
                 if (toggle.contains(player)) {
                     if ((coolTime.get(player) != null) && (System.currentTimeMillis() - coolTime.get(player) <= 3000)) {
                         if (event.getEntity() instanceof LivingEntity) {
-                            if ((event.getDamage() * 1.5) >= ((LivingEntity) event.getEntity()).getHealth()) {
+                            if (event.getEntity().isDead()) {
                                 coolTime.put(player, coolTime.get(player) - 5000);
                             }
                         }

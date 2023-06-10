@@ -23,7 +23,7 @@ import yasking.lupi13.gotchaability.events.SelectGUI;
 import java.util.*;
 
 public class Functions implements Listener {
-    private GotchaAbility plugin;
+    private static GotchaAbility plugin;
     public Functions(GotchaAbility plugin) {
         this.plugin = plugin;
     }
@@ -84,7 +84,7 @@ public class Functions implements Listener {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(displayName);
+        meta.setDisplayName(ChatColor.BOLD + displayName);
         meta.addEnchant(Enchantment.LUCK, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -474,13 +474,24 @@ public class Functions implements Listener {
     }
 
 
+    //String으로 사람 찾기
+    public static Player getPlayerByName(String name) {
+        for (Player player : plugin.getServer().getOnlinePlayers()) {
+            if (player.getDisplayName().equals(name)) {
+                return player.getPlayer();
+            }
+        }
+        return null;
+    }
+
+
     //속도 측정
     public static HashMap<Player, Vector> velocity = new HashMap<>();
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Vector from = event.getFrom().toVector();
-        Vector to;
+        Vector to = from;
         try {
             to = event.getTo().toVector();
         }
@@ -489,6 +500,7 @@ public class Functions implements Listener {
         }
         velocity.put(player, to.subtract(from));
     }
+
 
 
     //약화

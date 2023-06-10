@@ -12,10 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import yasking.lupi13.gotchaability.Functions;
-import yasking.lupi13.gotchaability.GotchaAbility;
-import yasking.lupi13.gotchaability.ItemManager;
-import yasking.lupi13.gotchaability.QuestManager;
+import yasking.lupi13.gotchaability.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,11 +80,11 @@ public class DictionaryGUI implements Listener {
                     event.setCancelled(true);
                     return;
                 }
-
                 /*
                 if (event.getCurrentItem().equals(ItemManager.Close)) {
-                    player.closeInventory();
                     event.setCancelled(true);
+                    player.closeInventory();
+                    return;
                 }
                  */
 
@@ -98,6 +95,7 @@ public class DictionaryGUI implements Listener {
                     player.openInventory(nextDictionary);
                     player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1F, 2F);
                     event.setCancelled(true);
+                    return;
                 }
 
                 else if (event.getCurrentItem().equals(ItemManager.PrevPage)) {
@@ -107,6 +105,7 @@ public class DictionaryGUI implements Listener {
                     player.openInventory(prevDictionary);
                     player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1F, 2F);
                     event.setCancelled(true);
+                    return;
                 }
                 else {
                     event.setCancelled(true);
@@ -128,6 +127,161 @@ public class DictionaryGUI implements Listener {
                         player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
                     }
                     event.setCancelled(true);
+                }
+                else {
+                    ItemStack item = event.getCurrentItem();
+                    String codename = ItemManager.codenameMap.get(item);
+                    String grade = Functions.getGrade(item);
+                    if (FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@unlocked").contains(codename)) {
+                        if (FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability").contains(codename)) {
+                            player.sendMessage(ChatColor.RED + "이미 적용되어있는 능력입니다!");
+                            player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+
+                            event.setCancelled(true);
+                        }
+
+                        else if ((grade.equals("C")) || (grade.equals("C*"))) {
+                            int WillCount = Functions.countItems(player, ItemManager.WillC);
+                            if (WillCount >= 1) {
+                                SelectGUI.activeSet(player, item);
+                                Functions.removeItems(player, ItemManager.WillC, 1);
+                                List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
+
+                                if (abilities.size() >= 1) {
+                                    abilities.set(0, codename);
+                                }
+                                else {
+                                    abilities.add(codename);
+                                }
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
+                                FileManager.saveAbility();
+
+                                player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
+                                player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1F, 2F);
+                                event.setCancelled(true);
+                            }
+                            else {
+                                player.sendMessage(ItemManager.WillC.getItemMeta().getDisplayName() + ChatColor.RESET + "이 부족합니다!");
+                                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                                event.setCancelled(true);
+                            }
+                        }
+                        else if ((grade.equals("B")) || (grade.equals("B*"))) {
+                            int WillCount = Functions.countItems(player, ItemManager.WillB);
+                            if (WillCount >= 1) {
+                                SelectGUI.activeSet(player, item);
+                                Functions.removeItems(player, ItemManager.WillB, 1);
+                                List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
+
+                                if (abilities.size() >= 1) {
+                                    abilities.set(0, codename);
+                                }
+                                else {
+                                    abilities.add(codename);
+                                }
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
+                                FileManager.saveAbility();
+
+                                player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
+                                player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1F, 2F);
+                                event.setCancelled(true);
+                            }
+                            else {
+                                player.sendMessage(ItemManager.WillB.getItemMeta().getDisplayName() + ChatColor.RESET + "이 부족합니다!");
+                                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                                event.setCancelled(true);
+                            }
+                        }
+                        else if ((grade.equals("A")) || (grade.equals("A*"))) {
+                            int WillCount = Functions.countItems(player, ItemManager.WillA);
+                            if (WillCount >= 1) {
+                                SelectGUI.activeSet(player, item);
+                                Functions.removeItems(player, ItemManager.WillA, 1);
+                                List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
+
+                                if (abilities.size() >= 1) {
+                                    abilities.set(0, codename);
+                                }
+                                else {
+                                    abilities.add(codename);
+                                }
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
+                                FileManager.saveAbility();
+
+                                player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
+                                player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1F, 2F);
+                                event.setCancelled(true);
+                            }
+                            else {
+                                player.sendMessage(ItemManager.WillA.getItemMeta().getDisplayName() + ChatColor.RESET + "이 부족합니다!");
+                                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                                event.setCancelled(true);
+                            }
+                        }
+                        else if ((grade.equals("S")) || (grade.equals("S*"))) {
+                            int WillCount = Functions.countItems(player, ItemManager.WillS);
+                            if (WillCount >= 1) {
+                                SelectGUI.activeSet(player, item);
+                                Functions.removeItems(player, ItemManager.WillS, 1);
+                                List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
+
+                                if (abilities.size() >= 1) {
+                                    abilities.set(0, codename);
+                                }
+                                else {
+                                    abilities.add(codename);
+                                }
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
+                                FileManager.saveAbility();
+
+                                player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
+                                player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1F, 2F);
+                                event.setCancelled(true);
+                            }
+                            else {
+                                player.sendMessage(ItemManager.WillS.getItemMeta().getDisplayName() + ChatColor.RESET + "이 부족합니다!");
+                                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                                event.setCancelled(true);
+                            }
+                        }
+                        else if (grade.equals("SS*")) {
+                            int WillCount = Functions.countItems(player, ItemManager.WillSS);
+                            if (WillCount >= 1) {
+                                SelectGUI.activeSet(player, item);
+                                Functions.removeItems(player, ItemManager.WillSS, 1);
+                                List<String> abilities = FileManager.getAbilityConfig().getStringList(player.getDisplayName() + "@ability");
+
+                                if (abilities.size() >= 1) {
+                                    abilities.set(0, codename);
+                                }
+                                else {
+                                    abilities.add(codename);
+                                }
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@ability", abilities);
+                                FileManager.getAbilityConfig().set(player.getDisplayName() + "@time", System.currentTimeMillis());
+                                FileManager.saveAbility();
+
+                                player.sendMessage("능력이 " + item.getItemMeta().getDisplayName() + ChatColor.RESET + "(으)로 설정되었습니다.");
+                                player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1F, 2F);
+                                event.setCancelled(true);
+                            }
+                            else {
+                                player.sendMessage(ItemManager.WillSS.getItemMeta().getDisplayName() + ChatColor.RESET + "이 부족합니다!");
+                                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                                event.setCancelled(true);
+                            }
+                        }
+                    }
+                    else {
+                        player.sendMessage(item.getItemMeta().getDisplayName() + ChatColor.RESET + "은(는) 아직 획득하지 못했습니다!");
+                        player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.5f, 1f);
+                        event.setCancelled(true);
+                    }
+
                 }
 
             }
